@@ -31,6 +31,6 @@ def main():
             print("You have exited the program.")
             return
         else:
-            print("invalid choice!please enter a number 1 to 3.")
+            print("invalid choice! please enter a number 1 to 3.")
 
 main()
