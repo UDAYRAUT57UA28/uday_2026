@@ -1,36 +1,76 @@
-def input_data(filename):
-    income = int(input("Enter your total income: "))
-    expenses = int(input("Enter your total expenses: "))
-    with open(filename, 'w') as file:
-        file.write(f"Income: {income}\n")
-        file.write(f"Expenses: {expenses}\n")
-    print(f"\nData successfully written to {filename}")
+FILE_NAME = "finance_data.txt"
 
-def read_balance(filename):
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-        read_income = int(lines[0].split(': ')[1].strip())
-        read_expenses = int(lines[1].split(': ')[1].strip())
-        balance = read_income-read_expenses
-    print("The balance is : ",balance)
+
+def add_entry(entry_type):
+    description = input("Enter description: ").strip()
+
+    try:
+        amount = float(input("Enter amount: "))
+        if amount <= 0:
+            print("Amount must be greater than zero.")
+            return
+    except ValueError:
+        print("Invalid amount. Please enter a number.")
+        return
+
+    with open(FILE_NAME, "a") as file:
+        file.write(f"{entry_type},{description},{amount}\n")
+
+    print(f"{entry_type.capitalize()} added successfully.\n")
+
+
+def calculate_summary():
+    total_income = 0.0
+    total_expense = 0.0
+
+    try:
+        with open(FILE_NAME, "r") as file:
+            for line in file:
+                entry_type, _, amount = line.strip().split(",")
+                amount = float(amount)
+
+                if entry_type == "income":
+                    total_income += amount
+                elif entry_type == "expense":
+                    total_expense += amount
+    except FileNotFoundError:
+        print("No data found yet.")
+        return
+
+    balance = total_income - total_expense
+
+    print("\n------ Financial Summary ------")
+    print(f"Total Income   : ₹{total_income:.2f}")
+    print(f"Total Expense  : ₹{total_expense:.2f}")
+    print(f"Balance        : ₹{balance:.2f}")
+    print("--------------------------------\n")
+
+
+def show_menu():
+    print("====== Personal Finance Tracker ======")
+    print("1. Add Income")
+    print("2. Add Expense")
+    print("3. View Summary")
+    print("4. Exit")
+
 
 def main():
-    filename = str(input("Enter the file name: "))
-    filename =  filename +".txt"
     while True:
-        print('''Chose the Operation:
-              1. Input the income and expense.
-              2. Read balance
-              3. Exit''')
-        ch = int(input("Enter your choice(1-3): "))
-        if  ch == 1:
-            input_data(filename)
-        elif ch ==2:
-            read_balance(filename)
-        elif ch == 3:
-            print("You have exited the program.")
-            return
-        else:
-            print("invalid choice! please enter a number 1 to 3.")
+        show_menu()
+        choice = input("Choose an option (1-4): ").strip()
 
-main()
+        if choice == "1":
+            add_entry("income")
+        elif choice == "2":
+            add_entry("expense")
+        elif choice == "3":
+            calculate_summary()
+        elif choice == "4":
+            print("Exiting... Have a great day!")
+            break
+        else:
+            print("Invalid choice. Please select 1-4.\n")
+
+
+if __name__ == "__main__":
+    main()
