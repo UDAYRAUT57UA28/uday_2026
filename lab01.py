@@ -1,5 +1,3 @@
-#lakhan sir lab 01
-
 FILE_NAME = "finance_data.txt"
 
 
@@ -71,7 +69,8 @@ def main():
             print("Exiting... Have a great day!")
             break
         else:
-            print("invalid choice!please enter a number 1 to 3.")
+            print("Invalid choice. Please select 1-4.\n")
+
 
 if __name__ == "__main__":
     main()
