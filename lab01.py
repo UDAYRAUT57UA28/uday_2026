@@ -71,8 +71,7 @@ def main():
             print("Exiting... Have a great day!")
             break
         else:
-            print("Invalid choice. Please select 1-4.\n")
-
+            print("invalid choice!please enter a number 1 to 3.")
 
 if __name__ == "__main__":
     main()
