@@ -1,0 +1,27 @@
+Str = str(input("Enter a String: "))
+print(Str.lower())
+print(Str.upper())
+print(Str.title())
+print(Str.capitalize())
+
+s = "  Hello  "
+print(s.strip())
+print(s.lstrip())
+print(s.rstrip())
+print(s.replace("  Hello ","Python world"))
+print(s.find("world"))
+print(s.find("Hello"))
+print(s.index("e"))
+print(Str.split())
+#"-".join("Python","world")
+print(s)
+
+print(s.startswith("Py"))
+print(s.endswith(" "))
+print(s.count("h"))
+print(s.isalpha())
+print(s.isdigit())
+print(s.isalnum())
+print(s.isspace())
+
+print(len(Str))
